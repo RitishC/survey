@@ -11,7 +11,7 @@
     <!-- HOOFD MENU-->
     <div class="row" style="padding-top:10px;">
         <div class="center-align">
-            <a class="" href="/"> Home </a>
+            <a class="" href="/home"> Home </a>
             @if(Auth::check())
                 <a class="" href="/logout"> Logout </a>
                 <a class="" href="#" style="text-transform:none;">{{ Auth::user()->email }}</a>
