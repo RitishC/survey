@@ -1,10 +1,18 @@
 <?php
 
-namespace App;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Question extends Model
+class CreateQuestionTable extends Migration
 {
-    //
-}
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function ()
+    {
+        
+    }
+
+   
