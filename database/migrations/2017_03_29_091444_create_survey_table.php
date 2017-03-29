@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateSurveyTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Uitvoeren van migratie
      *
      * @return void
      */
@@ -24,7 +24,7 @@ class CreateSurveyTable extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * 
      *
      * @return void
      */
