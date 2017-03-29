@@ -10,6 +10,7 @@ class CreateSurveyTable extends Migration
      *
      * @return void
      */
+    // het aanmaken van tables in db
     public function up()
     {
         Schema::create('survey', function (Blueprint $table) {
