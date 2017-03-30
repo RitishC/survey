@@ -1,5 +1,13 @@
 <?php
 
+namespace App\Http\Controllers; 
+
+use Auth;
+use Illuminate\Http\Request;
+use App\Survey;
+use App\Answer;
+use App\Http\Requests;
+
 
 class AnswerController extends Controller
 {
@@ -25,6 +33,8 @@ class AnswerController extends Controller
       $newAnswer->survey_id = $survey->id;
 
       $newAnswer->save();
+      
+      $answerArray[] = $newAnswer;
     };
     return redirect()->action('SurveyController@view_survey_answers', [$survey->id]);
   }
