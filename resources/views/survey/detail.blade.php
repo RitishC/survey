@@ -9,9 +9,6 @@
       </p>
       <br/>
       <a href='view/{{$survey->id}}'>Take Survey</a> | <a href="{{$survey->id}}/edit">Edit Survey</a> | <a href="/survey/answers/{{$survey->id}}">View Answers</a> <a href="#doDelete" style="float:right;" class="modal-trigger red-text">Delete Survey</a>
-          @if(isset($url))
-              | <a href="/url_survey/{{ $url->url }}">/url_survey/{{ $url->url }}</a>
-          @endif
       <!-- Modal Structure -->
       <!-- TODO Fix the Delete aspect -->
       <div id="doDelete" class="modal bottom-sheet">

@@ -15,10 +15,10 @@ class AnswerController extends Controller
   {
     $this->middleware('auth');
   }
-//functie voor resultaten
+
   public function store(Request $request, Survey $survey) 
   {
-    
+    // remove the token
     $arr = $request->except('_token');
     foreach ($arr as $key => $value) {
       $newAnswer = new Answer();
@@ -33,7 +33,7 @@ class AnswerController extends Controller
       $newAnswer->survey_id = $survey->id;
 
       $newAnswer->save();
-      
+
       $answerArray[] = $newAnswer;
     };
     return redirect()->action('SurveyController@view_survey_answers', [$survey->id]);

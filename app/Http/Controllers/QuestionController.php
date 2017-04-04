@@ -12,7 +12,6 @@ use App\Http\Requests;
 
 class QuestionController extends Controller
 {
-   
     public function __construct()
     {
         $this->middleware('auth');
@@ -38,4 +37,5 @@ class QuestionController extends Controller
       $question->update($request->all());
       return redirect()->action('SurveyController@detail_survey', [$question->survey_id]);
     }
+
 }

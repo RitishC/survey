@@ -2,15 +2,14 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-// klasse voor aanmaken van vragen
+
 class CreateQuestionTable extends Migration
 {
     /**
-     * 
+     * Run the migrations.
      *
      * @return void
      */
-    // functie voor toevoegen van vraag
     public function up()
     {
         Schema::create('question', function (Blueprint $table) {
@@ -25,7 +24,7 @@ class CreateQuestionTable extends Migration
     }
 
     /**
-     * 
+     * Reverse the migrations.
      *
      * @return void
      */

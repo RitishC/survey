@@ -6,11 +6,10 @@ use Illuminate\Database\Migrations\Migration;
 class CreateSurveyTable extends Migration
 {
     /**
-     * Uitvoeren van migratie
+     * Run the migrations.
      *
      * @return void
      */
-    // het aanmaken van tables in db
     public function up()
     {
         Schema::create('survey', function (Blueprint $table) {
@@ -24,7 +23,7 @@ class CreateSurveyTable extends Migration
     }
 
     /**
-     * 
+     * Reverse the migrations.
      *
      * @return void
      */
