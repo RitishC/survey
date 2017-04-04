@@ -11,18 +11,21 @@ class Question extends Model
   ];
   // invulmogelijkheden
   protected $fillable = ['title', 'question_type', 'option_name', 'user_id'];
-  public function survey() {
-    return $this->belongsTo(Survey::class);
-  }
+    protected $table = 'question';
 
-  public function user() {
-    return $this->belongsTo(User::class);
-  }
+    public function survey()
+    {
+        return $this->belongsTo(Survey::class);
+    }
 
-  public function answers() {
-    return $this->hasMany(Answer::class);
-  }
-  
-  protected $table = 'question';
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class);
+    }
 
 }
