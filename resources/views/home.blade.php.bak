@@ -7,9 +7,9 @@
                 <span style="float:right;">{{ link_to_route('new.survey', 'Create new') }}
             </span>
             </h2>
-	</li>
-      @forelse ($surveys as $survey)
-       <li class="collection-item">
+        </li>
+        @forelse ($surveys as $survey)
+            <li class="collection-item">
                 <div>
                     {{ link_to_route('detail.survey', $survey->title, ['id'=>$survey->id])}}
                     <a href="survey/view/{{ $survey->id }}" title="Neem deel aan de survey !" class="secondary-content"><i class="material-icons">send</i></a>

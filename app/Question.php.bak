@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 // maak klasse van vragen aan 
 class Question extends Model
 {
-   protected $casts = [
-       'option_name' => 'array',
-   ];
+  protected $casts = [
+      'option_name' => 'array',
+  ];
   // invulmogelijkheden
   protected $fillable = ['title', 'question_type', 'option_name', 'user_id'];
     protected $table = 'question';
