@@ -29,4 +29,30 @@
     @endforelse
   </tbody>
 </table>
+<canvas id="myChart"></canvas>
+    <script>
+      var ctx = document.getElementById("myChart");
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: ["Volledig oneens", "Oneens", "Noch oneens", "Eens", "Helemaal eens"],
+              datasets: [{
+                  label: 'Aantal antwoorden',
+                  data: [
+                  
+                  ],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      });
+    </script>
 @endsection
