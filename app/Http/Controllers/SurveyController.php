@@ -70,6 +70,13 @@ class SurveyController extends Controller
     $survey->load('user.questions.answers');
     // return view('survey.detail', compact('survey'));
     // return $survey;
+    $data = [];
+    foreach($survey->questions as $question) {
+        foreach($question->answers as $answer) {
+          isset($data[$answer->answer]) ? $data[$answer->answer] += $question->answers->count() : $data[$answer->answer] = $question->answers->count();
+        }
+    }            
+    dd($data);
     return view('answer.view', compact('survey'));
   }
 
