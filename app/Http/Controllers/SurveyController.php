@@ -87,5 +87,15 @@ class SurveyController extends Controller
     $survey->delete();
     return redirect('');
   }
+  //link voor de leraren aanmaken
+public function show_protected_survey($hash)
+    {
+        $survey = ProtectedUrl::where('url', $hash)->first()->survey;
+        $survey->load('questions.user');
+        $url = $survey->protected_urls->first();
+        return view('survey.detail', ['survey' => $survey, 'url' => $url]);
+
+    }
+
 
 }
