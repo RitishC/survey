@@ -1,5 +1,5 @@
 <?php
-
+Route::group(['middleware' => 'auth'], function () {
 Route::get('/', 'SurveyController@home');
 
 Route::get('/survey/new', 'SurveyController@new_survey')->name('new.survey');
@@ -19,4 +19,8 @@ Route::post('/survey/{survey}/questions', 'QuestionController@store')->name('sto
 
 Route::get('/question/{question}/edit', 'QuestionController@edit')->name('edit.question');
 Route::patch('/question/{question}/update', 'QuestionController@update')->name('update.question');
+});
+
 Route::auth();
+//routes voor url/link
+Route::get('/url_survey/{hash}/', 'SurveyController@show_protected_survey')->name('survey.protected');
