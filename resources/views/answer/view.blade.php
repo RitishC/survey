@@ -2,6 +2,8 @@
 
 @section('content')
 <h4>{{ $survey->title }}</h4>
+<!-- tabel weggehaald zodat er alleen staaf is -->
+<!--
 <table class="bordered striped">
   <thead>
     <tr>
@@ -19,6 +21,7 @@
         <small>{{ $answer->created_at }}</small></td>
       @endforeach
     </tr>
+
     @empty
       <tr>
         <td>
@@ -27,6 +30,7 @@
         <td></td>
       </tr>
     @endforelse
+    -->
   </tbody>
 </table>
 <canvas id="myChart"></canvas>
