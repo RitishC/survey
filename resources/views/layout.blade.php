@@ -4,6 +4,8 @@
         <title>Survey App built with Laravel :: Khophi's Dev</title>
         {!! MaterializeCSS::include_css() !!}
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+        
     </head>
 
     <body>

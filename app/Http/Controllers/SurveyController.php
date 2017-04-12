@@ -76,7 +76,7 @@ class SurveyController extends Controller
           isset($data[$answer->answer]) ? $data[$answer->answer] += $question->answers->count() : $data[$answer->answer] = $question->answers->count();
         }
     }            
-    dd($data);
+    
     return view('answer.view', compact('survey'));
   }
 

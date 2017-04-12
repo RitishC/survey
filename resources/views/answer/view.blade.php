@@ -31,14 +31,15 @@
 </table>
 <canvas id="myChart"></canvas>
     <script>
+    //staafdiagram van chart.js
       var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-              labels: ["Volledig oneens", "Oneens", "Noch oneens", "Eens", "Helemaal eens"],
+              labels: ["Volledig oneens", "Oneens", "Noch oneens", "Eens", "Volledig eens"],
               datasets: [{
                   label: 'Aantal antwoorden',
-                  data: [
+                  data: [2,2,2,1,1
                   
                   ],
                   borderWidth: 1
