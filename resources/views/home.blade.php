@@ -4,7 +4,7 @@
 <ul class="collection with-header">
     <li class="collection-header">
         <h2 class="flow-text">Recent Surveys
-            <span style="float:right;">{{ link_to_route('new.survey', 'Create new') }}
+            <span style="float:right;">{{ link_to_route('new.survey', 'Nieuwe survey') }}
             </span>
         </h2>
     </li>
@@ -18,7 +18,7 @@
         </div>
         </li>
     @empty
-        <p class="flow-text center-align">Nothing to show</p>
+        <p class="flow-text center-align">Geen survey om te weergeven</p>
     @endforelse
     </ul>
 

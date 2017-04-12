@@ -3,7 +3,7 @@
 @section('content')
   <div class="card">
       <div class="card-content">
-      <span class="card-title"> Start taking Survey</span>
+      <span class="card-title"> Survey afnemen</span>
       <p>
         <span class="flow-text">{{ $survey->title }}</span> <br/>
       </p>
@@ -42,7 +42,7 @@
                 @endif 
               <div class="divider" style="margin:10px 10px;"></div>
           @empty
-            <span class='flow-text center-align'>Nothing to show</span>
+            <span class='flow-text center-align'>Geen survey om te weergeven</span>
           @endforelse
         {{ Form::submit('Submit Survey', array('class'=>'btn waves-effect waves-light')) }}
         {!! Form::close() !!}

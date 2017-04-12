@@ -25,7 +25,7 @@
     @empty
       <tr>
         <td>
-          No answers provided by you for this Survey
+          Nog geen antwoorden ingevuld voor deze survey
         </td>
         <td></td>
       </tr>

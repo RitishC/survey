@@ -8,29 +8,29 @@
         {{ $survey->description }}
       </p>
       <br/>
-      <a href='view/{{$survey->id}}'>Take Survey</a> | <a href="{{$survey->id}}/edit">Edit Survey</a> | <a href="/survey/answers/{{$survey->id}}">View Answers</a> <a href="#doDelete" style="float:right;" class="modal-trigger red-text">Delete Survey</a>
+      <a href='view/{{$survey->id}}'>Survey afnemen</a> | <a href="{{$survey->id}}/edit">Wijzig survey</a> | <a href="/survey/answers/{{$survey->id}}">Bekijk de resultaten</a> <a href="#doDelete" style="float:right;" class="modal-trigger red-text">Verwijder survey</a>
       <!-- Modal Structure -->
       <!-- TODO Fix the Delete aspect -->
       <div id="doDelete" class="modal bottom-sheet">
         <div class="modal-content">
           <div class="container">
             <div class="row">
-              <h4>Are you sure?</h4>
-              <p>Do you wish to delete this survey called "{{ $survey->title }}"?</p>
+              <h4>Weet je zeker?</h4>
+              <p>Weet je zeker dat je de survey "{{ $survey->title }}" wilt verwijderen?</p>
               <div class="modal-footer">
-                <a href="/survey/{{ $survey->id }}/delete" class=" modal-action waves-effect waves-light btn-flat red-text">Yep yep!</a>
-                <a class=" modal-action modal-close waves-effect waves-light green white-text btn">No, stop!</a>
+                <a href="/survey/{{ $survey->id }}/delete" class=" modal-action waves-effect waves-light btn-flat red-text">Ja, ik weet het zeker</a>
+                <a class=" modal-action modal-close waves-effect waves-light green white-text btn">Nee, annuleer</a>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="divider" style="margin:20px 0px;"></div>
-      <p class="flow-text center-align">Questions</p>
+      <p class="flow-text center-align">Vragen</p>
       <ul class="collapsible" data-collapsible="expandable">
           @forelse ($survey->questions as $question)
           <li style="box-shadow:none;">
-            <div class="collapsible-header">{{ $question->title }} <a href="/question/{{ $question->id }}/edit" style="float:right;">Edit</a></div>
+            <div class="collapsible-header">{{ $question->title }} <a href="/question/{{ $question->id }}/edit" style="float:right;">Wijzig</a></div>
             <div class="collapsible-body">
               <div style="margin:5px; padding:10px;">
                   {!! Form::open() !!}
@@ -66,28 +66,28 @@
             <span style="padding:10px;">Nothing to show. Add questions below.</span>
           @endforelse
       </ul>
-      <h2 class="flow-text">Add Question</h2>
+      <h2 class="flow-text">Voeg vraag toe</h2>
       <form method="POST" action="{{ $survey->id }}/questions" id="boolean">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="row">
           <div class="input-field col s12">
             <select class="browser-default" name="question_type" id="question_type">
-              <option value="" disabled selected>Choose your option</option>
+              <option value="" disabled selected>Kies je optie</option>
               <option value="text">Text</option>
-              <option value="textarea">Textarea</option>
+             <!-- <option value="textarea">Textarea</option>-->
               <option value="checkbox">Checkbox</option>
               <option value="radio">Radio Buttons</option>
             </select>
           </div>                
           <div class="input-field col s12">
             <input name="title" id="title" type="text">
-            <label for="title">Question</label>
+            <label for="title">Vraag</label>
           </div>  
           <!-- this part will be chewed by script in init.js -->
           <span class="form-g"></span>
 
           <div class="input-field col s12">
-          <button class="btn waves-effect waves-light">Submit</button>
+          <button class="btn waves-effect waves-light">Verstuur</button>
           </div>
         </div>
         </form>
