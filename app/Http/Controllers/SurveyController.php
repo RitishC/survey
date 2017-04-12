@@ -80,14 +80,7 @@ class SurveyController extends Controller
     return view('answer.view', compact('survey'));
   }
 
-  // TODO: Make sure user deleting survey
-  // has authority to
-  public function delete_survey(Survey $survey)
-  {
-    $survey->delete();
-    return redirect('');
-  }
-  //link voor de leraren aanmaken
+ //link voor de leraren aanmaken
 public function show_protected_survey($hash)
     {
         $survey = ProtectedUrl::where('url', $hash)->first()->survey;
@@ -96,6 +89,14 @@ public function show_protected_survey($hash)
         return view('survey.detail', ['survey' => $survey, 'url' => $url]);
 
     }
+  // TODO: Make sure user deleting survey
+  // has authority to
+  public function delete_survey(Survey $survey)
+  {
+    $survey->delete();
+    return redirect('');
+  }
+ 
 
 
 }
