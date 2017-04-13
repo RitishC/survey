@@ -10,7 +10,8 @@ class Survey extends Model
   protected $dates = ['deleted_at'];
   protected $table = 'survey';
 
-  public function questions() {
+  public function questions() 
+  {
     return $this->hasMany(Question::class);
   }
 
@@ -19,11 +20,13 @@ public function protected_urls()
         return $this->hasMany(ProtectedUrl::class);
     }
     
-  public function user() {
+  public function user() 
+  {
     return $this->belongsTo(User::class);
   }
   
-  public function answers() {
+  public function answers() 
+  {
     return $this->hasMany(Answer::class);
   }
 
