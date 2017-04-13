@@ -35,20 +35,29 @@ class SurveyController extends Controller
     $arr = $request->all();
     // $request->all()['user_id'] = Auth::id();
     $arr['user_id'] = Auth::id();
+
     $surveyItem = $survey->create($arr);
+
     $protectedUrl = new ProtectedUrl();
+
+
+
         $protectedUrl->survey_id = $surveyItem->id;
         $protectedUrl->url = md5(time());
 
         $protectedUrl->save();
+
+
+
     return Redirect::to("/survey/{$surveyItem->id}");
   }
 
   # retrieve detail page and add questions here
   public function detail_survey(Survey $survey) 
   {
+	$data = [];
     $survey->load('questions.user');
-    return view('survey.detail', compact('survey'));
+   
     if ($survey->protected_urls->first() !== null) {
             $data['url'] = $survey->protected_urls->first();
         }
