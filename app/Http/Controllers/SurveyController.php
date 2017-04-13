@@ -103,11 +103,7 @@ public function show_protected_survey($hash)
     }
   // TODO: Make sure user deleting survey
   // has authority to
-  public function delete_survey(Survey $survey)
-  {
-    $survey->delete();
-    return redirect('');
-  }
+
  
 
 
