@@ -40,13 +40,18 @@
       var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-              labels: ["Volledig oneens", "Oneens", "Noch oneens", "Eens", "Volledig eens"],
+              labels: [@foreach($data as $key => $val)
+                          {!! $key !!},
+                        @endforeach],
               datasets: [{
                   label: 'Aantal antwoorden',
-                  data: [2,2,2,1,1
-                  
+                  data: [
+                  @foreach($data as $val)
+                    {{$val}},
+                  @endforeach
                   ],
-                  borderWidth: 1
+                  borderWidth: 1,
+                  backgroundColor: "rgba(75,192,192,0.4)"
               }]
           },
           options: {
