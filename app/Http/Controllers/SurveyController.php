@@ -15,7 +15,7 @@ class SurveyController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth');
+    $this->middleware('auth', ['except' => ['show_protected_survey']]);
   }
 
   public function home(Request $request) 
@@ -33,21 +33,16 @@ class SurveyController extends Controller
   public function create(Request $request, Survey $survey) 
   {
     $arr = $request->all();
-    // $request->all()['user_id'] = Auth::id();
     $arr['user_id'] = Auth::id();
 
     $surveyItem = $survey->create($arr);
 
     $protectedUrl = new ProtectedUrl();
 
+    $protectedUrl->survey_id = $surveyItem->id;
+    $protectedUrl->url = md5(time());
 
-
-        $protectedUrl->survey_id = $surveyItem->id;
-        $protectedUrl->url = md5(time());
-
-        $protectedUrl->save();
-
-
+    $protectedUrl->save();
 
     return Redirect::to("/survey/{$surveyItem->id}");
   }
@@ -85,31 +80,32 @@ class SurveyController extends Controller
     return view('survey.view', compact('survey'));
   }
 
-  # view submitted answers from current logged in user
+  /**
+   * Toon antwoorden van vragen lijsten
+   * @param Survey $survey
+   */
   public function view_survey_answers(Survey $survey) 
   {
     $survey->load('user.questions.answers');
-    // return view('survey.detail', compact('survey'));
-    // return $survey;
+
     $data = [];
     foreach($survey->questions as $question) {
         foreach($question->answers as $answer) {
-          isset($data[$answer->answer]) ? $data[$answer->answer] += $question->answers->count() : $data[$answer->answer] = $question->answers->count();
+          $data[$answer->answer] = $survey->answers->where("answer", $answer->answer)->count();
         }
-    }            
-    
-    return view('answer.view', compact('survey'));
+    }
+    return view('answer.view', ['survey'=> $survey, "data" => $data]);
   }
 
  //link voor de leraren aanmaken
 public function show_protected_survey($hash)
-    {
-        $survey = ProtectedUrl::where('url', $hash)->first()->survey;
-        $survey->load('questions.user');
-        $url = $survey->protected_urls->first();
-        return view('survey.detail', ['survey' => $survey, 'url' => $url]);
+{
+    $survey = ProtectedUrl::where('url', $hash)->first()->survey;
+    $survey->load('questions.user');
+    $url = $survey->protected_urls->first();
+    return view('survey.view', ['survey' => $survey, 'url' => $url]);
 
-    }
+}
   // TODO: Make sure user deleting survey
   // has authority to
 
