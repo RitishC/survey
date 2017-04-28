@@ -6,6 +6,7 @@ use Auth;
 use App\ProtectedUrl;
 use App\Survey;
 use App\Answer;
+use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -88,28 +89,56 @@ class SurveyController extends Controller
   {
     $survey->load('user.questions.answers');
 
+    $all = [];
+    foreach($survey->questions as $question) {
+        foreach($question->answers as $answer) {
+          $all[$answer->answer] = $survey->answers->where("answer", $answer->answer)->count();
+        }
+    }
+
     $data = [];
     foreach($survey->questions as $question) {
         foreach($question->answers as $answer) {
-          $data[$answer->answer] = $survey->answers->where("answer", $answer->answer)->count();
+          $data[$question->id][$question->title][$answer->answer] = $survey->answers->where("answer", $answer->answer)->where("question_id", $question->id)->count();
         }
     }
-    return view('answer.view', ['survey'=> $survey, "data" => $data]);
+    return view('answer.view', ['survey'=> $survey, "data" => $data, "all" => $all]);
   }
 
  //link voor de leraren aanmaken
-public function show_protected_survey($hash)
-{
-    $survey = ProtectedUrl::where('url', $hash)->first()->survey;
-    $survey->load('questions.user');
-    $url = $survey->protected_urls->first();
-    return view('survey.view', ['survey' => $survey, 'url' => $url]);
+  public function show_protected_survey($hash)
+  {
+      $survey = ProtectedUrl::where('url', $hash)->first()->survey;
+      $survey->load('questions.user');
+      $url = $survey->protected_urls->first();
+      return view('survey.view', ['survey' => $survey, 'url' => $url]);
 
-}
-  // TODO: Make sure user deleting survey
-  // has authority to
+  }
+    // TODO: Make sure user deleting survey
+    // has authority to
 
- 
+  public function export_answers(Question $question)
+  {
+    $filename = "file.csv";
+    $data = [];
+    foreach($question->answers as $answer) {
+        $data[$answer->answer] = $question->answers->where("answer", $answer->answer)->where("question_id", $question->id)->count();
+    }
+  
+    ob_start();
+    $handle = fopen($filename, 'w+');
+    fputcsv($handle, [$question->title]);
+    foreach ($data as $answer => $row) {
+       fputcsv($handle, [$answer, $row]);
+    }
+    fclose($handle);
+
+    $headers = array(
+        'Content-Type' => 'text/csv',
+    );
+
+    return response()->download($filename, $question->title . ' '.date("d-m-Y H:i").'.csv', $headers);
+} 
 
 
 }

@@ -33,20 +33,27 @@
     -->
   </tbody>
 </table>
+
+<h5>Alle antwoorden</h5>
 <canvas id="myChart"></canvas>
+@foreach($data as $key => $question)
+<h5><a href="{!! route('export.survey', $key) !!}">{{ key($question) }}</a></h5>
+  <canvas id="myChart-{{ $key }}"></canvas>
+  
+@endforeach
     <script>
     //staafdiagram van chart.js
       var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
           type: 'bar',
           data: {
-              labels: [@foreach($data as $key => $val)
+              labels: [@foreach($all as $key => $val)
                           {!! $key !!},
                         @endforeach],
               datasets: [{
                   label: 'Aantal antwoorden',
                   data: [
-                  @foreach($data as $val)
+                  @foreach($all as $val)
                     {{$val}},
                   @endforeach
                   ],
@@ -64,5 +71,40 @@
               }
           }
       });
+    //staafdiagram van chart.js
+    @foreach($data as $key => $question)
+      var ctx = document.getElementById("myChart-{{ $key }}");
+      var myChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: [@foreach($question as $val)
+                      @foreach($val as $title => $answer)
+                        {!! $title !!},
+                      @endforeach,
+                  @endforeach],
+              datasets: [{
+                  label: 'Aantal antwoorden',
+                  data: [
+                  @foreach($question as $val)
+                    @foreach($val as $answer)
+                      {{ $answer }},
+                    @endforeach,
+                  @endforeach
+                  ],
+                  borderWidth: 1,
+                  backgroundColor: "rgba(75,192,192,0.4)"
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      });
+    @endforeach
     </script>
 @endsection
