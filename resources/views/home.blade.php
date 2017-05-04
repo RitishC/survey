@@ -3,7 +3,7 @@
 @section('content')
 <ul class="collection with-header">
     <li class="collection-header">
-        <h2 class="flow-text">Recent Surveys
+        <h2 class="flow-text">Recente surveys
             <span style="float:right;">{{ link_to_route('new.survey', 'Nieuwe survey') }}
             </span>
         </h2>

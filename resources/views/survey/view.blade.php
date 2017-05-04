@@ -9,12 +9,12 @@
       </p>
       <p>  
         {{ $survey->description }}
-        <br/>Created by: <a href="">{{ $survey->user->name }}</a>
+       <!-- <br/>Gemaakt door: <a href="">{{ $survey->user->name }}</a>-->
       </p>
       <div class="divider" style="margin:20px 0px;"></div>
           {!! Form::open(array('action'=>array('AnswerController@store', $survey->id))) !!}
           @forelse ($survey->questions as $key=>$question)
-            <p class="flow-text">Question {{ $key+1 }} - {{ $question->title }}</p>
+            <p class="flow-text">Vraag {{ $key+1 }} - {{ $question->title }}</p>
                 @if($question->question_type === 'text')
                   <div class="input-field col s12">
                     <input id="answer" type="text" name="{{ $question->id }}[answer]">
@@ -44,7 +44,7 @@
           @empty
             <span class='flow-text center-align'>Geen survey om te weergeven</span>
           @endforelse
-        {{ Form::submit('Submit Survey', array('class'=>'btn waves-effect waves-light')) }}
+        {{ Form::submit('Verstuur survey', array('class'=>'btn waves-effect waves-light')) }}
         {!! Form::close() !!}
     </div>
   </div>

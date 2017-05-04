@@ -8,10 +8,10 @@
         {{ $survey->description }}
       </p>
       <br/>
-      <a href='view/{{$survey->id}}'>Survey afnemen</a> | <a href="{{$survey->id}}/edit">Wijzig survey</a> | <a href="/survey/answers/{{$survey->id}}">Bekijk de resultaten</a> <a href="#doDelete" style="float:right;" class="modal-trigger red-text">Verwijder survey</a>
+      <!--<a href='view/{{$survey->id}}'>Survey afnemen</a> --> <a href="{{$survey->id}}/edit">Wijzig survey</a> | <a href="/survey/answers/{{$survey->id}}">Bekijk de resultaten</a> <a href="#doDelete" style="float:right;" class="modal-trigger red-text">Verwijder survey</a>
 <!-- link die gestuurd kan worden naar leraren -->
       @if(isset($url))
-              | <a href="/url_survey/{{ $url->url }}">/url_survey/{{ $url->url }}</a>
+              | <a href="/url_survey/{{ $url->url }}">Kopieer link <!--{{ $url->url }}--></a>
           @endif
       <!-- Modal Structure -->
       <!-- TODO Fix the Delete aspect -->
@@ -77,10 +77,10 @@
           <div class="input-field col s12">
             <select class="browser-default" name="question_type" id="question_type">
               <option value="" disabled selected>Kies je optie</option>
-              <option value="text">Text</option>
+              <option value="text">Tekst</option>
              <!-- <option value="textarea">Textarea</option>-->
-              <option value="checkbox">Checkbox</option>
-              <option value="radio">Radio Buttons</option>
+              <!--<option value="checkbox">Checkbox</option>-->
+              <option value="radio">Keuzerondje</option>
             </select>
           </div>                
           <div class="input-field col s12">

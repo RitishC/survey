@@ -10,7 +10,7 @@
 
                 <div class="input-field col s12 {{ $errors->has('email') ? ' has-error' : '' }}">
                   <input id="email" type="email" class="validate" name="email" value="{{ old('email') }}" required>
-                  <label for="email">E-mail Address</label>
+                  <label for="email">Emailadres</label>
                     @if ($errors->has('email'))
                         <div class="col s12">
                             <span class="red-text">
@@ -22,7 +22,7 @@
 
                 <div class="input-field col s12 {{ $errors->has('password') ? ' has-error' : '' }}" required>
                     <input type="password" name="password" class="validate" min="8" id="password">
-                    <label for="password">Password</label>
+                    <label for="password">Wachtwoord</label>
                     @if ($errors->has('password'))
                         <span class="red-text">
                             <strong>{{ $errors->first('password') }}</strong>
@@ -30,15 +30,15 @@
                     @endif
                 </div>
 
-                <p class="col s12">
+               <!-- <p class="col s12">
                   <input type="checkbox" id="remember" name="remember" />
                   <label for="remember">Remember Me</label>
-                </p>
+                </p> -->
 
                 <div class="input-field col s12">
                     <button type="submit" class="btn waves-effect waves-light">Login</button>
                     <p>
-                        <a class="" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                        <a class="" href="{{ url('/password/reset') }}">Wachtwoord vergeten?</a>
                     </p>
                 </div>
             </form>
