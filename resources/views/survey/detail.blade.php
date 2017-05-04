@@ -67,7 +67,7 @@
             </div>
           </li>
           @empty
-            <span style="padding:10px;">Nothing to show. Add questions below.</span>
+            <span style="padding:10px;">Geen vragen toegevoegd. Voeg vragen toe.</span>
           @endforelse
       </ul>
       <h2 class="flow-text">Voeg vraag toe</h2>
