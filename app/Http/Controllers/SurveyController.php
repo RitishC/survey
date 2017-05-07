@@ -11,6 +11,7 @@ use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class SurveyController extends Controller
@@ -101,11 +102,23 @@ class SurveyController extends Controller
     }
 
     $data = [];
+
     foreach($survey->questions as $question) {
-        foreach($question->answers as $answer) {
-          $data[$question->id][$question->title][$answer->answer] = $survey->answers->where("answer", $answer->answer)->where("question_id", $question->id)->count();
+        foreach(QuestionCategory::all() as $category) {
+            if ($question->question_category_id !== $category->id) {
+                continue;
+            }
+
+            foreach($question->answers as $answer) {
+               $count = DB::table('answer')->leftJoin('question', 'question_id', '=', 'question.id')
+                    ->where('question.question_category_id', '=', $category->id)
+                    ->where('answer.answer', '=', $answer->answer)
+                    ->select('answer.id')->count();
+                $data[$category->category_name][$category->category_name][$answer->answer] = $count;
+            }
         }
     }
+
     return view('answer.view', ['survey'=> $survey, "data" => $data, "all" => $all]);
   }
 
@@ -116,6 +129,7 @@ class SurveyController extends Controller
       $survey->load('questions.user');
       $url = $survey->protected_urls->first();
       return view('survey.view', ['survey' => $survey, 'url' => $url]);
+
 
   }
     // TODO: Make sure user deleting survey

@@ -82,12 +82,15 @@
               <!--<option value="checkbox">Checkbox</option>-->
               <option value="radio">Keuzerondje</option>
             </select>
-          </div>                
-          <div class="input-field col s12">
-            <input name="title" id="title" type="text">
-            <label for="title">Vraag</label>
-          </div>  
-          <!-- this part will be chewed by script in init.js -->
+          </div>
+            <div class="input-field col s12">
+                <input name="title" id="title" type="text">
+                <label for="title">Vraag</label>
+            </div>
+            <div class="input-field col s12 category_names_container" style="display:none;">
+                <select name="question_category_id" id="category_names" class="category_names"></select>
+            </div>
+            <!-- this part will be chewed by script in init.js -->
           <span class="form-g"></span>
 
           <div class="input-field col s12">

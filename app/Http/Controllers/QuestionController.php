@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Survey;
 use App\Question;
 use Auth;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 
@@ -19,11 +20,11 @@ class QuestionController extends Controller
   
     public function store(Request $request, Survey $survey) 
     {
-      $arr = $request->all();
-      $arr['user_id'] = Auth::id();
+        $arr = $request->all();
+        $arr['user_id'] = Auth::user()->id;
 
-      $survey->questions()->create($arr);
-      return back();
+        $survey->questions()->create($arr);
+        return back();
     }
 
     public function edit(Question $question) 
