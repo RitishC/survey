@@ -1,4 +1,11 @@
 $(document).ready(function() {
+  var categories = [];
+
+  $.get( "/survey/questions/categories", function( data ) {
+      self.categories = [data];
+  });
+  console.log(categories);
+
   $('.collapsible').collapsible({
     accordion: false
   });
@@ -12,6 +19,9 @@ $(document).ready(function() {
   // will replace .form-g class when referenced
   var material = '<div class="input-field col input-g s12">' +
     '<input name="option_name[]" id="option_name[]" type="text">' +
+    'Categorie:' +
+    '<select name="category_name[]" id="category_names" style="display:block;">' +
+    '</select>' +
     '<span style="float:right; cursor:pointer;"class="delete-option">Delete</span>' +
     '<label for="option_name">Options</label>' +
     '<span class="add-option" style="cursor:pointer;">Add Another</span>' +

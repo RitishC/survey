@@ -6,6 +6,7 @@ use Auth;
 use App\ProtectedUrl;
 use App\Survey;
 use App\Answer;
+use App\QuestionCategory;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -55,13 +56,16 @@ class SurveyController extends Controller
     $survey->load('questions.user');
    
     if ($survey->protected_urls->first() !== null) {
-            $data['url'] = $survey->protected_urls->first();
-        }
-        $data['survey'] = $survey;
-        return view('survey.detail', $data);
+        $data['url'] = $survey->protected_urls->first();
+    }
+    $data['survey'] = $survey;
+    return view('survey.detail', $data);
   }
-  
 
+  public function get_question_categories()
+  {
+      return response()->json(['categories' => QuestionCategory::all()]);
+  }
   public function edit(Survey $survey) 
   {
     return view('survey.edit', compact('survey'));

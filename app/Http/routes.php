@@ -3,7 +3,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/', 'SurveyController@home');
 
 	Route::get('/survey/new', 'SurveyController@new_survey')->name('new.survey');
-	Route::get('/survey/{survey}', 'SurveyController@detail_survey')->name('detail.survey');
+    Route::get('/survey/{survey}', 'SurveyController@detail_survey')->name('detail.survey');
+    Route::get('/survey/questions/categories', 'SurveyController@get_question_categories')->name('detail.question_categories');
 	Route::get('/export-survey/{question}', 'SurveyController@export_answers')->name('export.survey');
 	Route::get('/survey/view/{survey}', 'SurveyController@view_survey')->name('view.survey');
 	Route::get('/survey/answers/{survey}', 'SurveyController@view_survey_answers')->name('view.survey.answers');

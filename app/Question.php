@@ -21,7 +21,11 @@ class Question extends Model
   public function answers() {
     return $this->hasMany(Answer::class);
   }
-  
-  protected $table = 'question';
+
+    public function categories() {
+        return $this->hasMany(QuestionCategory::class);
+    }
+
+    protected $table = 'question';
 
 }
