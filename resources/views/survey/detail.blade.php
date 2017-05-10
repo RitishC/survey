@@ -9,6 +9,8 @@
       </p>
       <br/>
       <!--<a href='view/{{$survey->id}}'>Survey afnemen</a> --> <a href="{{$survey->id}}/edit">Wijzig survey</a> | <a href="/survey/answers/{{$survey->id}}">Bekijk de resultaten</a> <a href="#doDelete" style="float:right;" class="modal-trigger red-text">Verwijder survey</a>
+      </br></br>
+    <p>  Kopieer deze link voor de leraren:</p>
 <input id="foo" value="www.kennisbank.education/public/url_survey/{{ $url->url }}">
 <!-- link die gestuurd kan worden naar leraren -->
     <!--  @if(isset($url))
