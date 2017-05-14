@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://survey.local'),
+    'url' => env('APP_URL', 'http://survey.local/survey/public'),
 
     /*
     |--------------------------------------------------------------------------
