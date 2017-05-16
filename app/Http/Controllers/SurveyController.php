@@ -222,6 +222,7 @@ class SurveyController extends Controller
 
     public function thankyou_page()
     {
+       
         return view('survey.thankyou');
     }
 }
