@@ -12,7 +12,7 @@
       <div class="container">
           <div class="row" style="padding-top:10px;">
               <div class="center-align">
-                <a class="btn blue waves-effect waves-light lighten-1 white-text" href="/"> Home </a>
+                <a class="btn blue waves-effect waves-light lighten-1 white-text" href="/"> Startpagina </a>
                   @if(Auth::check())
                     <a class="btn-flat waves-effect waves-light darken-1 white black-text" href="/logout"> Uitloggen </a>
                     <a class="btn-flat disabled" href="#" style="text-transform:none;">{{ Auth::user()->email }}</a>

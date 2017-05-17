@@ -39,4 +39,9 @@ class QuestionController extends Controller
       return redirect()->action('SurveyController@detail_survey', [$question->survey_id]);
     }
 
+        public function delete_question(Question $question)
+    {
+        $question->delete();
+        return redirect('');
+    }
 }

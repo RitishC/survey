@@ -220,6 +220,8 @@ class SurveyController extends Controller
         return redirect('');
     }
 
+
+
     public function thankyou_page()
     {
        

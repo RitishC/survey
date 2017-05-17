@@ -12,9 +12,9 @@
       <li class="collection-item">
         <div>
             {{ link_to_route('detail.survey', $survey->title, ['id'=>$survey->id])}}
-            <a href="survey/view/{{ $survey->id }}" title="Take Survey" class="secondary-content"><i class="material-icons">send</i></a>
-            <a href="survey/{{ $survey->id }}" title="Edit Survey" class="secondary-content"><i class="material-icons">edit</i></a>
-            <a href="survey/answers/{{ $survey->id }}" title="View Survey Answers" class="secondary-content"><i class="material-icons">textsms</i></a>
+            <a href="survey/view/{{ $survey->id }}" title="Vul Survey in" class="secondary-content"><i class="material-icons">send</i></a>
+            <a href="survey/{{ $survey->id }}" title="Wijzig Survey" class="secondary-content"><i class="material-icons">edit</i></a>
+            <a href="survey/answers/{{ $survey->id }}" title="Surveyresultaten inzien" class="secondary-content"><i class="material-icons">textsms</i></a>
         </div>
         </li>
     @empty

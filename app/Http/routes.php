@@ -16,9 +16,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// Questions related
 	Route::post('/survey/{survey}/questions', 'QuestionController@store')->name('store.question');
-
 	Route::get('/question/{question}/edit', 'QuestionController@edit')->name('edit.question');
 	Route::patch('/question/{question}/update', 'QuestionController@update')->name('update.question');
+	Route::get('/question/{question}/delete', 'QuestionController@delete_question')->name('delete.survey');
 });
 
 Route::auth();
