@@ -8,7 +8,7 @@
    <div class="row">
     <div class="input-field col s12">
       <input type="text" name="title" id="title" value="{{ $survey->title }}">
-      <label for="title">Vraag</label>
+      <label for="title">Naam van de vragenlijst</label>
     </div>
     <div class="input-field col s12">
       <textarea id="description" name="description" class="materialize-textarea">{{ $survey->description }}</textarea>
