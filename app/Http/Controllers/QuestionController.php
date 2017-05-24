@@ -42,6 +42,6 @@ class QuestionController extends Controller
         public function delete_question(Question $question)
     {
         $question->delete();
-        return redirect('');
+        return redirect()->back();
     }
 }

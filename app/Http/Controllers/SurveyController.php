@@ -106,28 +106,28 @@ class SurveyController extends Controller
           // Get all questions
         foreach($survey->questions as $question) {
             foreach ($question->answers as $answer) {
-              $data[$question->id][$question->title][$answer->answer] = $survey->answers->where("answer", $answer->answer)->where("question_id", $question->id)->count();
+              $data[$question->id][$question->title][$answer->answer] = Answer::where('answer', $answer->answer)->where('question_id', $question->id)->where('survey_id', $survey->id)->count();
             }
         }
 
-          // Get all categories
+        // Get all categories
         foreach($survey->questions as $question) {
             foreach(QuestionCategory::all() as $category) {
-                if ($question->question_category_id !== $category->id) {
-                    continue;
-                }
+              if ($question->question_category_id != $category->id) {
+                  continue;
+              }
 
-            foreach($question->answers as $answer) {
-                $count = DB::table('answer')->leftJoin('question', 'question_id', '=', 'question.id')
-                ->where('question.question_category_id', '=', $category->id)
-                ->where('answer.answer', '=', $answer->answer)
-                ->select('answer.id')->count();
-                $data[$category->category_name][$category->category_name][$answer->answer] = $count;
-            }
-        }
-    }
+	            foreach($question->answers as $answer) {
+	                $count = DB::table('answer')->leftJoin('question', 'question_id', '=', 'question.id')
+	                ->where('question.question_category_id', '=', $category->id)
+	                ->where('answer.answer', '=', $answer->answer)
+	                ->select('answer.id')->count();
+	                $data[$category->category_name][$category->category_name][$answer->answer] = $count;
+	            }
+        	}
+    	}
 
-    return view('answer.view', ['survey'=> $survey, "data" => $data, "all" => $all]);
+    	return view('answer.view', ['survey'=> $survey, "data" => $data, "all" => $all]);
     }
 
        //link voor de leraren aanmaken
@@ -162,9 +162,9 @@ class SurveyController extends Controller
 
             foreach ($question->answers as $answer) {
                 if (isset($data[$question->title][$question->answer])) {
-                    $data[$question->title][$answer->answer] += $question->answers->where("answer", $answer->answer)->where("question_id", $question->id)->count();
+                    $data[$question->title][$answer->answer] += Answer::where('answer', $answer->answer)->where('question_id', $question->id)->count();
                 } else {
-                    $data[$question->title][$answer->answer] = $question->answers->where("answer", $answer->answer)->where("question_id", $question->id)->count();
+                    $data[$question->title][$answer->answer] = Answer::where('answer', $answer->answer)->where('question_id', $question->id)->count();
                 }
             }
         }
@@ -193,7 +193,7 @@ class SurveyController extends Controller
     {
         $data = [];
         foreach ($question->answers as $answer) {
-            $data[$answer->answer] = $question->answers->where("answer", $answer->answer)->where("question_id", $question->id)->count();
+            $data[$answer->answer] = Answer::where('answer', $answer->answer)->where('question_id', $question->id)->count();
         }
 
         ob_start();
