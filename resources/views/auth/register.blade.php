@@ -50,9 +50,9 @@
                 </div>
 
                     <div class="input-field col s12">
-                        <button type="submit" class="btn waves-effect waves-light">Register</button>
+                        <button type="submit" class="btn waves-effect waves-light">Registreer</button>
                         <p>
-                            <a class="" href="{{ url('/login') }}">Have an account?</a>
+                            <a class="" href="{{ url('/login') }}">Heb je een account?</a>
                         </p>
                     </div>
                 </form>
