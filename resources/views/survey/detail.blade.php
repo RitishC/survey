@@ -37,7 +37,7 @@
       <ul class="collapsible" data-collapsible="expandable">
          @forelse ($questions as $question)
           <li style="box-shadow:none;">
-            <div class="collapsible-header">{{ $question->title }} - Category: {{ $question->category_name }}
+            <div class="collapsible-header">{{ $question->title }} - categorie: {{ $question->category_name }}
                 <a href="/question/{{ $question->id }}/edit" style="float:right;">Wijzig</a>
                 <a href="/question/{{ $question->id }}/delete"
                    onclick="return confirm('Weet je zeker dat je deze vraag wilt verwijderen?')"
