@@ -15,9 +15,8 @@
 <!-- link die gestuurd kan worden naar leraren -->
     <!--  @if(isset($url))
               | <a href="/url_survey/{{ $url->url }}">Kopieer link <!--{{ $url->url }}--></a>
-          @endif 
+          @endif
       <!-- Modal Structure -->
-      <!-- TODO Fix the Delete aspect -->
       <div id="doDelete" class="modal bottom-sheet">
         <div class="modal-content">
           <div class="container">
@@ -32,13 +31,18 @@
           </div>
         </div>
       </div>
-      
+
       <div class="divider" style="margin:20px 0px;"></div>
       <p class="flow-text center-align">Vragen</p>
       <ul class="collapsible" data-collapsible="expandable">
-          @forelse ($survey->questions as $question)
+         @forelse ($questions as $question)
           <li style="box-shadow:none;">
-            <div class="collapsible-header">{{ $question->title }} <a href="/question/{{ $question->id }}/edit" style="float:right;">Wijzig</a><a href="/question/{{ $question->id }}/delete" style="float:right;">Verwijder &nbsp</a></div>
+            <div class="collapsible-header">{{ $question->title }} - Category: {{ $question->category_name }}
+                <a href="/question/{{ $question->id }}/edit" style="float:right;">Wijzig</a>
+                <a href="/question/{{ $question->id }}/delete"
+                   onclick="return confirm('Weet je zeker dat je deze vraag wilt verwijderen?')"
+                   style="float:right;">Verwijder &nbsp;</a>
+            </div>
 
             <div class="collapsible-body">
               <div style="margin:5px; padding:10px;">
@@ -53,14 +57,14 @@
                       </div>
                     </div>
                     @elseif($question->question_type === 'radio')
-                      @foreach($question->option_name as $key=>$value)
+                      @foreach(json_decode($question->option_name) as $key=>$value)
                         <p style="margin:0px; padding:0px;">
                           <input type="radio" id="{{ $key }}" />
                           <label for="{{ $key }}">{{ $value }}</label>
                         </p>
                       @endforeach
                     @elseif($question->question_type === 'checkbox')
-                      @foreach($question->option_name as $key=>$value)
+                      @foreach(json_decode($question->option_name) as $key=>$value)
                       <p style="margin:0px; padding:0px;">
                         <input type="checkbox" id="{{ $key }}" />
                         <label for="{{$key}}">{{ $value }}</label>

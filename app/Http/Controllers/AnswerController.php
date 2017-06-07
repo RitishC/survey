@@ -14,7 +14,8 @@ class AnswerController extends Controller
     public function store(Request $request, Survey $survey) 
     {
         // remove the token
-        $arr = $request->except('_token');
+        $arr       = $request->except(['_token', 'school']);
+        $school_id = $request->input('school');
 
         foreach ($arr as $key => $value) {
             $newAnswer = new Answer();
@@ -25,11 +26,11 @@ class AnswerController extends Controller
                 $newValue = json_encode($value['answer']);
             }
 
-            $newAnswer->answer = $newValue;
+            $newAnswer->answer      = $newValue;
             $newAnswer->question_id = $key;
-            $newAnswer->user_id = Auth::id();
-            $newAnswer->survey_id = $survey->id;
-
+            $newAnswer->user_id     = Auth::id();
+            $newAnswer->survey_id   = $survey->id;
+            $newAnswer->school_id   = $school_id;
             $newAnswer->save();
 
             $answerArray[] = $newAnswer;

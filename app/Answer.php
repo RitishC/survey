@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-    protected $fillable = ['answer'];
+    protected $fillable = ['answer', 'school_id'];
     protected $table = 'answer';
 
     public function survey() {
@@ -15,5 +15,9 @@ class Answer extends Model
 
     public function question() {
       return $this->belongsTo(Question::class);
+    }
+
+    public function school() {
+        return $this->belongsTo(School::class, 'school_id');
     }
 }

@@ -13,6 +13,16 @@
       </p>
       <div class="divider" style="margin:20px 0px;"></div>
           {!! Form::open(array('action'=>array('AnswerController@store', $survey->id))) !!}
+          <h4>School</h4>
+
+              <div class="input-field col s12">
+                  <select id="school" style="display: block !important;" name="school">
+                      @foreach($schools as $school)
+                            <option value="{{$school->id}}"> {{ $school->name }}</option>
+                      @endforeach
+                  </select>
+              </div>
+
           @forelse ($survey->questions as $key=>$question)
             <p class="flow-text">Vraag {{ $key+1 }} - {{ $question->title }}</p>
                 @if($question->question_type === 'text')
