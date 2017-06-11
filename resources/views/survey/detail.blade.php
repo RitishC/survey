@@ -57,12 +57,19 @@
                       </div>
                     </div>
                     @elseif($question->question_type === 'radio')
-                      @foreach(json_decode($question->option_name) as $key=>$value)
-                        <p style="margin:0px; padding:0px;">
-                          <input type="radio" id="{{ $key }}" />
-                          <label for="{{ $key }}">{{ $value }}</label>
-                        </p>
-                      @endforeach
+                      @if( ! (is_array($options = $question->option_name) && is_array(json_decode($question->option_name))))
+                          <p style="margin:0px; padding:0px;">
+                              <input type="radio" id="1" />
+                              <label for="1">{{ $options }}</label>
+                          </p>
+                      @else
+                          @foreach($options as $key=>$value)
+                            <p style="margin:0px; padding:0px;">
+                              <input type="radio" id="{{ $key }}" />
+                              <label for="{{ $key }}">{{ $value }}</label>
+                            </p>
+                          @endforeach
+                      @endif
                     @elseif($question->question_type === 'checkbox')
                       @foreach(json_decode($question->option_name) as $key=>$value)
                       <p style="margin:0px; padding:0px;">

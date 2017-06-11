@@ -29,12 +29,11 @@ class QuestionController extends Controller
 
     public function edit(Question $question) 
     {
-      return view('question.edit', compact('question'));
+     	return view('question.edit', compact('question'));
     }
 
     public function update(Request $request, Question $question) 
     {
-
       $question->update($request->all());
       return redirect()->action('SurveyController@detail_survey', [$question->survey_id]);
     }

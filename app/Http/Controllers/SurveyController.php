@@ -18,7 +18,7 @@ class SurveyController extends Controller
       {
         public function __construct()
         {
-          $this->middleware('auth', ['except' => ['show_protected_survey']]);
+          $this->middleware('auth', ['except' => ['show_protected_survey', 'thankyou_page']]);
       }
 
       public function home(Request $request) 
@@ -55,6 +55,7 @@ class SurveyController extends Controller
     {
         $data = [];
         $survey->load('questions.user');
+		$data['questions'] = [];
 
         foreach($survey->questions as $question) {
             // Get all categories
@@ -64,7 +65,8 @@ class SurveyController extends Controller
                 }
 
                 $questions = DB::table('question')
-                    ->leftJoin('question_category', 'question.question_category_id', '=', 'question_category.id')
+					->leftJoin('question_category', 'question.question_category_id', '=', 'question_category.id')
+					->where('question.survey_id', $survey->id)
                     ->select('question_category.category_name', 'question.*')->get();
                 $data['questions'] = $questions;
             }
@@ -118,7 +120,7 @@ class SurveyController extends Controller
         foreach($survey->questions as $question) {
             // Get all answers
             foreach ($question->answers as $answer) {
-                $all[$answer->answer] = $survey->answers->where("answer", $answer->answer)->count();
+				$all[$answer->answer] = $survey->answers->where("answer", $answer->answer)->count();
             }
         }
 
@@ -137,7 +139,7 @@ class SurveyController extends Controller
                 }
 
                 foreach ($question->answers as $answer) {
-                    $count = DB::table('answer')->leftJoin('question', 'question_id', '=', 'question.id')
+                	$count   = DB::table('answer')->leftJoin('question', 'question_id', '=', 'question.id')
                         ->where('question.question_category_id', '=', $category->id)
                         ->where('answer.answer', '=', $answer->answer)
                         ->select('answer.id')->count();
@@ -147,11 +149,12 @@ class SurveyController extends Controller
         }
 
         foreach($survey->questions as $question) {
-             // Get all schools
+        	// Get all schools
             foreach($question->answers as $answer) {
-                if(! isset($data[$answer->school->name][$answer->school->name][$answer->answer])) {
+                if (! isset($data[$answer->school->name][$answer->school->name][$answer->answer])) {
                     $data[$answer->school->name][$answer->school->name][$answer->answer] = 0;
                 }
+
                 $data[$answer->school->name][$answer->school->name][$answer->answer] += Answer::where('answer', $answer->answer)
                     ->where('question_id', $question->id)
                     ->where('survey_id', $survey->id)
@@ -183,17 +186,18 @@ class SurveyController extends Controller
     {
         $filename = "file.csv";
 
-        if(is_string($parameter)) {
-            $school = School::where('name', $parameter)->first();
-            return $this->export_school($school, $filename);
-        }
-
         if(null !== ($category = QuestionCategory::where('category_name', $parameter)->first())) {
             return $this->export_question_category($category, $filename);
         }
 
-        $question = Question::find($parameter);
-        return $this->export_question($question, $filename);
+        if(null !== ($question = Question::find($parameter))) {
+			return $this->export_question($question, $filename);
+		}
+
+		if(null !== ($school = School::where('name', $parameter)->first())) {
+			return $this->export_school($school, $filename);
+		}
+		echo "404 - Answers not found";
     }
 
     private function export_question_category(QuestionCategory $question_category, $filename)
@@ -297,7 +301,6 @@ class SurveyController extends Controller
 
     public function thankyou_page()
     {
-       
         return view('survey.thankyou');
     }
 }
