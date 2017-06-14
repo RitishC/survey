@@ -127,7 +127,10 @@ class SurveyController extends Controller
         foreach($survey->questions as $question) {
             // Get all questions
             foreach ($question->answers as $answer) {
-                $data[$question->id][$question->title][$answer->answer] = Answer::where('answer', $answer->answer)->where('question_id', $question->id)->where('survey_id', $survey->id)->count();
+                $data[$question->id][$question->title][$answer->answer] = Answer::where('answer', $answer->answer)->where('question_id', $question->id)
+					->where('survey_id', $survey->id)
+					->orderBy('question_id')
+					->count();
             }
         }
 
@@ -142,6 +145,7 @@ class SurveyController extends Controller
                 	$count   = DB::table('answer')->leftJoin('question', 'question_id', '=', 'question.id')
                         ->where('question.question_category_id', '=', $category->id)
                         ->where('answer.answer', '=', $answer->answer)
+						->orderBy('question_id')
                         ->select('answer.id')->count();
                     $data[$category->category_name][$category->category_name][$answer->answer] = $count;
                 }
@@ -159,6 +163,7 @@ class SurveyController extends Controller
                     ->where('question_id', $question->id)
                     ->where('survey_id', $survey->id)
                     ->where('school_id', $answer->school_id)
+					->orderBy('question_id')
                     ->count();
             }
 

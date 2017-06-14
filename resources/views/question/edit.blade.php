@@ -1,9 +1,7 @@
 @extends('layout')
 
 @section('content')
-<form method="POST" action="/question/{{ $question->id }}/update">
-  {{ method_field('PATCH') }}
-  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+{{ Form::open(array('route' => array('update.question', $question->id))) }}
   <h2 class="flow-text">Wijzig vraag titel</h2>
    <div class="row">
     <div class="input-field col s12">
@@ -47,5 +45,5 @@
           <button class="btn waves-effect waves-light">Opslaan</button>
       </div>
   </div>
-</form>
+{{ Form::close() }}
 @stop

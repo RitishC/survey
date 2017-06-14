@@ -64,6 +64,9 @@
           },
           options: {
               scales: {
+                  xAxes: [{
+                    display: false
+                  }],
                   yAxes: [{
                       ticks: {
                           beginAtZero:true
@@ -98,6 +101,9 @@
                 },
                 options: {
                     scales: {
+                        xAxes: [{
+                          display: false
+                        }],
                         yAxes: [{
                             ticks: {
                                 beginAtZero:true
