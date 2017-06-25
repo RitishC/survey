@@ -8,7 +8,7 @@
         {{ $survey->description }}
       </p>
       <br/>
-      <!--<a href='view/{{$survey->id}}'>Survey afnemen</a> --><a href="/survey/answers/{{$survey->id}}">Bekijk de resultaten</a>
+      <!--<a href='view/{{$survey->id}}'>Survey afnemen</a> --><a href="/survey/answers/{{$survey->id}}" style="text-decoration:underline; color: blue;">Bekijk de resultaten</a>
     <p>  Kopieer deze link voor de leraren:</p>
 <input id="foo" value="www.kennisbank.education/public/url_survey/{{ $url->url }}">
 <!-- link die gestuurd kan worden naar leraren -->

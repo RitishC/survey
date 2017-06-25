@@ -197,7 +197,7 @@ class SurveyController extends Controller
                     ->where('question_id', $question->id)
                     ->where('survey_id', $survey->id)
                     ->where('school_id', $answer->school_id)
-					->orderBy('question_id')
+                    ->orderBy('question_id')
                     ->count();
             }
 
