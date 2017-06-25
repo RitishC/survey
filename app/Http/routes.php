@@ -26,3 +26,6 @@ Route::auth();
 Route::get('/url_survey/{hash}/', 'SurveyController@show_protected_survey')->name('survey.protected');
 Route::get('/thankyou_page', 'SurveyController@thankyou_page')->name('survey.thankyou');
 Route::post('/survey/view/{survey}/completed', 'AnswerController@store')->name('complete.survey');
+
+Route::get('/survey/{survey}/user', 'SurveyController@detail_survey_user')->name('detail.survey.user');
+Route::get('/user', 'SurveyController@detail_overview_user')->name('overview.survey.user');

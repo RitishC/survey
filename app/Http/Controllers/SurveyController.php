@@ -10,45 +10,79 @@ use App\QuestionCategory;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class SurveyController extends Controller
-      {
-        public function __construct()
-        {
-          $this->middleware('auth', ['except' => ['show_protected_survey']]);
-      }
+{
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['show_protected_survey']]);
+        $this->middleware('admin', ['only' => ['create', 'detail_survey', 'edit', 'update', 'delete_survey', 'home']]);
+    }
 
-      public function home(Request $request) 
-      {
-          $surveys = Survey::get();
-          return view('home', compact('surveys'));
-      }
+    public function home(Request $request)
+    {
+        $surveys = Survey::get();
+        return view('home', compact('surveys'));
+    }
 
-        # Show page to create new survey
-      public function new_survey() 
-      {
-          return view('survey.new');
-      }
+    public function detail_overview_user(Request $request)
+    {
+        $surveys = Survey::get();
+        return view('user.home', compact('surveys'));
+    }
 
-      public function create(Request $request, Survey $survey) 
-      {
-          $arr = $request->all();
-          $arr['user_id'] = Auth::id();
+    # Show page to create new survey
+    public function new_survey()
+    {
+        return view('survey.new');
+    }
 
-          $surveyItem = $survey->create($arr);
+    public function create(Request $request, Survey $survey)
+    {
+        $arr = $request->all();
+        $arr['user_id'] = Auth::id();
 
-          $protectedUrl = new ProtectedUrl();
+        $surveyItem = $survey->create($arr);
 
-          $protectedUrl->survey_id = $surveyItem->id;
-          $protectedUrl->url = md5(time());
+        $protectedUrl = new ProtectedUrl();
 
-          $protectedUrl->save();
+        $protectedUrl->survey_id = $surveyItem->id;
+        $protectedUrl->url = md5(time());
 
-          return Redirect::to("/survey/{$surveyItem->id}");
-      }
+        $protectedUrl->save();
+
+        return Redirect::to("/survey/{$surveyItem->id}");
+    }
+
+    public function detail_survey_user(Survey $survey)
+    {
+        $data = [];
+        $survey->load('questions.user');
+
+        foreach($survey->questions as $question) {
+            // Get all categories
+            foreach (QuestionCategory::all() as $category) {
+                if ($question->question_category_id != $category->id) {
+                    continue;
+                }
+
+                $questions = DB::table('question')
+                    ->leftJoin('question_category', 'question.question_category_id', '=', 'question_category.id')
+                    ->select('question_category.category_name', 'question.*')->get();
+                $data['questions'] = $questions;
+            }
+        }
+
+        if ($survey->protected_urls->first() !== null) {
+            $data['url'] = $survey->protected_urls->first();
+        }
+
+        $data['survey'] = $survey;
+
+        return view('survey.user.detail', $data);
+    }
 
     //retrieve detail page and add questions here
     public function detail_survey(Survey $survey)
@@ -290,14 +324,13 @@ class SurveyController extends Controller
     public function delete_survey(Survey $survey)
     {
         $survey->delete();
-        return redirect('');
+        return back();
     }
 
 
 
     public function thankyou_page()
     {
-       
         return view('survey.thankyou');
     }
 }
