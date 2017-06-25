@@ -82,7 +82,7 @@ class AuthController extends Controller
             return $this->authenticated($request, Auth::guard($this->getGuard())->user());
         }
 
-        if (Auth::user()->user_level === 1) {
+        if (Auth::user()->user_level == 1) {
             return redirect('/');
         }
 
