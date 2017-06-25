@@ -37,9 +37,10 @@
 <h5>Alle antwoorden</h5>
 <h6>Deze survey is {{ $times_survey_answered }} keer beantwoord.</h6>
 <canvas id="myChart"></canvas>
+{{ $i = 0 }}
 @foreach($data as $key => $question)
         <h5><a href="{!! route('export.survey', $key) !!}">{{ key($question) }}</a></h5>
-          <canvas id="myChart-{{ $key }}"></canvas>
+        <canvas id="myChart-{{ $key }}"></canvas>
 @endforeach
     <script>
     //staafdiagram van chart.js
@@ -63,6 +64,9 @@
           },
           options: {
               scales: {
+                  xAxes: [{
+                    display: false
+                  }],
                   yAxes: [{
                       ticks: {
                           beginAtZero:true
@@ -97,6 +101,9 @@
                 },
                 options: {
                     scales: {
+                        xAxes: [{
+                          display: false
+                        }],
                         yAxes: [{
                             ticks: {
                                 beginAtZero:true
