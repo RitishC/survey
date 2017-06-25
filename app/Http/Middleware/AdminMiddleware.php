@@ -20,6 +20,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return response('Geen voldoende rechten.', 401);
+        return redirect()->to('overview.survey.user');
     }
 }
