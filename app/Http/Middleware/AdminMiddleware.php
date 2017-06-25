@@ -20,6 +20,6 @@ class AdminMiddleware
             return $next($request);
         }
 
-        return redirect()->to('overview.survey.user');
+        return redirect()->route('overview.survey.user');
     }
 }
